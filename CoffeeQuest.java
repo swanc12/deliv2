@@ -17,32 +17,34 @@ public class CoffeeQuest{
 		Room room2 = new Room("dastardly", "fantastic fence");
 		Room room3 = new Room("typical", "boring branch");
 		Room room4 = new Room("tyranical", "totalitarion tank");
-		Room room5 = new Room("plastered", "empty stein");
-		Room room6 = new Room("regretful", "apologetic student");
+		Room room5 = new Room("plastered", "half-full stein");
+		Room room6 = new Room("regretful", "foolhardy student");
 		
 		//Setting the doors for each room!
-		room1.setNorth(room2);
+		room1.setNorth(room2, "dreadful");
 		
-		room2.setNorth(room3);
-		room2.setSouth(room1);
+		room2.setNorth(room3, "terrifying");
+		room2.setSouth(room1, "tranquil");
 		
-		room3.setNorth(room4);
-		room3.setSouth(room2);
+		room3.setNorth(room4, "forboding");
+		room3.setSouth(room2, "tempting");
 		
-		room4.setNorth(room5);
-		room4.setSouth(room3);
+		room4.setNorth(room5, "horrific");
+		room4.setSouth(room3, "seductive");
 		
-		room5.setNorth(room6);
-		room5.setSouth(room4);
+		room5.setNorth(room6, "devilish");
+		room5.setSouth(room4, "holy");
 		
-		room6.setSouth(room5);
+		room6.setSouth(room5, "godly");
 		
-		System.out.println(room1);
-		System.out.println(room2);
-		System.out.println(room3);
-		System.out.println(room4);
-		System.out.println(room5);
-		System.out.println(room6);
+		Room currentRoom = room1;
+		
+		while(currentRoom != null){
+			System.out.println(currentRoom);
+			currentRoom = currentRoom.north;
+		}
+		
+		
 	}
 
 }
