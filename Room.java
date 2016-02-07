@@ -17,8 +17,11 @@ public class Room{
 	
 	public String adjective;
 	public String furnishing;
-	public String object;
+	public String object; //object to be picked up by player if they input "L" / "l"
 	
+	/*
+	 * Constructor. Room must at least be created with an adjective and a furnishing.
+	 */
 	public Room(String adj, String furn){
 		
 		north = null;
@@ -29,33 +32,29 @@ public class Room{
 		
 	}
 	
-	public Room(Room n, Room s, String adj, String furn, String nd, String sd){
-		
-		if(n != null){
-			north = n;
-			nDoor = nd;
-		}
-		
-		if(s != null){
-			south = s;
-			sDoor = sd;
-		}
-		
-		adjective = adj;
-		furnishing = furn;
-		
-	}
-	
+	/*
+	 * Creates a "door" (link) to a room North of this one. Door must have an adjective.
+	 */
 	public void setNorth(Room n, String nd){
 		north = n;
 		nDoor = nd;
 	}
 	
+	/*
+	 * Creates a "door" (link) to a room south of this one. Door must have an adjective.
+	 */
 	public void setSouth(Room s, String sd){
 		south = s;
 		sDoor = sd;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 * 
+	 * Returns a string representation of this Room. Prints the adjective and furnishing for the room as well
+	 * as doors and their adjectives, if present.
+	 */
 	public String toString(){
 		String returnString = "";
 		returnString = returnString + "You see a " + adjective + " room.\nIt has a " + furnishing + ".\n";
