@@ -9,15 +9,30 @@
 
 public class Room{
 	
-	public Room north;
-	public String nDoor; //Door adjs. aren't required but they're fun :)
+	protected Room north;
+	protected String nDoor; //Door adjs. aren't required but they're fun :)
 	
-	public Room south;
-	public String sDoor;
+	protected Room south;
+	protected String sDoor;
 	
-	public String adjective;
-	public String furnishing;
-	public String object; //object to be picked up by player if they input "L" / "l"
+	protected String adjective;
+	protected String furnishing;
+	protected String object; //object to be picked up by player if they input "L" / "l"
+	
+	/*
+	 * Constructor. Empty room. Should not be used in this program but required for
+	 * RoomTest to extend Room, allowing it access to protected variables. Unsure
+	 * if this is considered good practice or not, it seemed better to require
+	 * the room to have an adjective and furniture defined always since its
+	 * a requirement of the program as a whole. 
+	 */
+	public Room(){
+		north = null;
+		south = null;
+		adjective = null;
+		furnishing = null;
+		object = null;
+	}
 	
 	/*
 	 * Constructor. Room must at least be created with an adjective and a furnishing.
@@ -33,6 +48,20 @@ public class Room{
 	}
 	
 	/*
+	 * Constructor. Allows room to be defined with an object as well.
+	 */
+	public Room(String adj, String furn, String obj){
+		
+		north = null;
+		south = null;
+		adjective = adj;
+		furnishing = furn;
+		object = obj;
+		
+	}
+	
+	
+	/*
 	 * Creates a "door" (link) to a room North of this one. Door must have an adjective.
 	 */
 	public void setNorth(Room n, String nd){
@@ -46,6 +75,66 @@ public class Room{
 	public void setSouth(Room s, String sd){
 		south = s;
 		sDoor = sd;
+	}
+	
+	/*
+	 * Sets object to String passed into method.
+	 */
+	public void setObject(String obj){
+		object = obj;
+	}
+	
+	/*
+	 * Returns the value for north, which is a room if there's an adjacent room north of this one
+	 * or null if not.
+	 */
+	public Room getNorth(){
+		return north;
+	}
+	
+	/*
+	 * Returns the value for south, which is a room if there's an adjacent room south of this one
+	 * or null if not.
+	 */
+	public Room getSouth(){
+		return south;
+	}
+	
+	/*
+	 * Returns object variable
+	 */
+	public String getObject(){
+		return object;
+	}
+	
+	/*
+	 * Returns true if an object exists for the room, else false.
+	 */
+	public boolean hasObject(){
+		if(object != null){
+			return true;
+		}
+		return false;
+	}
+	
+	/*
+	 * Returns true if there's a room north of this one, false otherwise.
+	 */
+	public boolean isRoomNorth(){
+		if(north != null){
+			return true;
+		}
+		return false;
+	}
+	
+	/*
+	 * Returns true if there's a room north of this one, false otherwise.
+	 */
+	public boolean isRoomSouth(){
+		if(south != null){
+			return true;
+		}
+		return false;
 	}
 	
 	/*

@@ -2,7 +2,52 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class RoomTest{
+public class RoomTest extends Room{
+	
+	/*
+	 * Test to ensure the constructor sets the proper variables. This test
+	 * checks the constructor without any arguments passed in.
+	 */
+	@Test
+	public void testConstructorEmpty(){
+		Room troom = new Room();
+		assertEquals(troom.adjective, null);
+		assertEquals(troom.furnishing, null);
+		assertEquals(troom.object, null);
+		assertEquals(troom.north, null);
+		assertEquals(troom.south, null);
+		assertEquals(troom.nDoor, null);
+	}
+	
+	/*
+	 * Test to ensure the constructor sets the proper variables. This test
+	 * checks the constructor with furniture and room adjective.
+	 */
+	@Test
+	public void testConstructorAdjFurn(){
+		Room troom = new Room("test", "test");
+		assertEquals(troom.adjective, "test");
+		assertEquals(troom.furnishing, "test");
+		assertEquals(troom.north, null);
+		assertEquals(troom.south, null);
+		assertEquals(troom.nDoor, null);
+		assertEquals(troom.object, null);
+	}
+	
+	/*
+	 * Test to ensure the constructor sets the proper variables. This test
+	 * checks the constructor with furniture, room adjective and object set.
+	 */
+	@Test
+	public void testConstructorObjAdjFurn(){
+		Room troom = new Room("test1", "test2", "test3");
+		assertEquals(troom.adjective, "test1");
+		assertEquals(troom.furnishing, "test2");
+		assertEquals(troom.object, "test3");
+		assertEquals(troom.north, null);
+		assertEquals(troom.south, null);
+		assertEquals(troom.nDoor, null);
+	}
 
 	/*
 	 * Tests to make sure that the setNorth mutator method mutates the object correctly.
@@ -34,6 +79,121 @@ public class RoomTest{
 		troom.setSouth(sroom, "test");
 		assertEquals(troom.south, sroom);
 		assertEquals(troom.sDoor, "test");
+	}
+	
+	/*
+	 * Test to ensure that setObject actually sets the object variable for a room.
+	 * Creates a room and calls setObject, then compares the value in the
+	 * room's object variable to what is expected to be there.
+	 */
+	@Test
+	public void testSetObject(){
+		Room troom = new Room("test", "test");
+		troom.setObject("HelloTest");
+		assertEquals(troom.object, "HelloTest");
+	}
+	
+	/*
+	 * Test to ensure that getNorth returns the value of a room's north variable.
+	 * If a room's north Room object is set it should return that room.
+	 */
+	@Test
+	public void testGetNorth(){
+		Room troom = new Room("test", "test");
+		Room nroom = new Room("n", "n");
+		troom.north = nroom;
+		assertEquals(troom.getNorth(), nroom);
+	}
+	
+	/*
+	 * Test to ensure that getNorth returns the value of a room's north variable.
+	 * If a room's north Room object is set it should return that room.
+	 */
+	@Test
+	public void testGetSouth(){
+		Room troom = new Room("test", "test");
+		Room sroom = new Room("s", "s");
+		troom.south = sroom;
+		assertEquals(troom.getSouth(), sroom);
+	}
+	
+	/*
+	 * Test to ensure that an object is returned correctly when getObject is
+	 * called. Creates a room and adds an object before calling getObject,
+	 * which should return whatever the room.object variable it set to.
+	 */
+	@Test
+	public void testGetObject(){
+		Room troom = new Room("test", "test");
+		troom.object = "Test";
+		assertEquals("Test", troom.getObject());
+	}
+	
+	/*
+	 * hasObject should return true if the room has an object, and false otherwise. This test
+	 * checks to see if it returns true when the room has an object.
+	 */
+	@Test
+	public void testHasObjectTrue(){
+		Room troom = new Room("test", "test", "object");
+		assertEquals(true, troom.hasObject());
+	}
+	
+	/*
+	 * hasObject should return true if the room has an object, and false otherwise. This test
+	 * checks to see if it returns false when the room has no object.
+	 */
+	@Test
+	public void testHasObjectFalse(){
+		Room troom = new Room("test", "test");
+		assertEquals(false, troom.hasObject());
+	}
+	
+	/*
+	 * isRoomSouth should return true if a room's south variable is not null.
+	 * Test sets a room to another room's north variable, so the method should
+	 * return true.
+	 */
+	@Test
+	public void testIsRoomSouthTrue(){
+		Room troom = new Room("test", "test");
+		Room sroom = new Room("s", "s");
+		troom.south = sroom;
+		assertEquals(troom.isRoomSouth(), true);
+	}
+	
+	/*
+	 * isRoomNorth should return true if a room's north variable is not null.
+	 * Test sets a room to another room's north variable, so the method should
+	 * return true.
+	 */
+	@Test
+	public void testIsRoomNorthTrue(){
+		Room troom = new Room("test", "test");
+		Room nroom = new Room("n", "n");
+		troom.north = nroom;
+		assertEquals(troom.isRoomNorth(), true);
+	}
+	
+	/*
+	 * isRoomNorth should return true if a room's south variable is not null.
+	 * Test does not set a room for the test room's south variable, so isRoomSouth
+	 * should return false.
+	 */
+	@Test
+	public void testIsRoomSouthFalse(){
+		Room troom = new Room("test", "test");
+		assertEquals(troom.isRoomSouth(), false);
+	}
+	
+	/*
+	 * isRoomNorth should return true if a room's north variable is not null.
+	 * Test does not set a room for the test room, so isRoomNorth should return false.
+	 */
+	@Test
+	public void testIsRoomNorthFalse(){
+		Room troom = new Room("test", "test");
+		assertEquals(troom.isRoomNorth(), false);
 	}
 
 	/*
