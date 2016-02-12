@@ -11,9 +11,21 @@
  */
 
 import java.util.Scanner;
+import java.io.*;
 
 public class CoffeeQuest{
+	
+	Scanner kInput;
 	Room currentRoom;
+	
+	public CoffeeQuest(){
+	}
+	
+	public CoffeeQuest(InputStream in, Room startRoom){
+		kInput = new Scanner(in);
+		currentRoom = startRoom;
+	}
+	
 	public char inputToChar(String in){
 		String input = in.toUpperCase().trim();
 		//If the player inputs a command with more than 1 character it is invalid.
@@ -43,17 +55,41 @@ public class CoffeeQuest{
 		
 		return 'X';
 	}
-
-	public boolean parseInput(String input, Player player, Room room){
-		char command = inputToChar(input);
+	
+	public boolean parseInput(Player player){
+		System.out.println("Commands: (N)orth, (S)outh, (L)ook, (I)nventory, (D)rink, (H)elp");
+		char command = inputToChar(kInput.nextLine());
 		if(command == 'N'){
-			currentRoom = currentRoom.
+			if(currentRoom.isRoomNorth()){
+				currentRoom = currentRoom.north;
+			}
 		}
-		return false;
+		else if(command == 'S'){
+			if(currentRoom.isRoomSouth()){
+				currentRoom = currentRoom.south;
+			}
+		}
+		else if(command == 'I'){
+			boolean[] invState = player.getInv();
+		}
+		else if(command == 'L'){
+			char lookResult = player.look(currentRoom);
+		}
+		else if(command == 'D'){
+			return false;
+		}
+		else if(command == 'H'){
+			System.out.println("HELP");
+		}
+		return true;
+	}
+	
+	public String currentRoomString(){
+		return currentRoom.toString();
 	}
 	
 	public static void main(String[] args){
-		Scanner in = new Scanner(System.in);
+
 		Room room1 = new Room("bravely", "shady chandelier", "Cream");
 		Room room2 = new Room("dastardly", "fantastic fence");
 		Room room3 = new Room("typical", "boring branch");
@@ -78,23 +114,22 @@ public class CoffeeQuest{
 		
 		room6.setSouth(room5, "godly");
 		
-		currentRoom = room1;
-		
+		CoffeeQuest narrator = new CoffeeQuest(System.in, room1);
 		Player readyPlayerOne = new Player();
-		
 		System.out.println("Welcome to Coffee Quest");
 		
 		//Used for do while loop.
 		boolean proceed;
 		do{
-			System.out.println("\n" + currentRoom);
-			System.out.println("Instructions: (N)orth, (S)outh, (L)ook, (I)nventory, (D)rink, (H)elp");
-			String input = in.nextLine();
-			
+			System.out.println(narrator.currentRoomString());
+			proceed = narrator.parseInput(readyPlayerOne);		
+
 			//Could have just put parseInput in while loop but this is a bit easier to follow.
-			proceed = parseInput(input, readyPlayerOne, currentRoom);			
+	
 		}
 		while(proceed);
+		
+		System.out.println("Done!");
 		
 	}
 

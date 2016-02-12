@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Implementation-Title: Objenesis TCK
+Implementation-Version: 2.2
+Archiver-Version: Plexus Archiver
+Built-By: htrembl2
+Specification-Vendor: Joe Walnes, Henri Tremblay, Leonardo Mesquita
+Specification-Title: Objenesis TCK
+Implementation-Vendor-Id: org.objenesis
+Implementation-Vendor: Joe Walnes, Henri Tremblay, Leonardo Mesquita
+Main-Class: org.objenesis.tck.Main
+Created-By: Apache Maven 3.2.5
+Build-Jdk: 1.8.0_51
+Specification-Version: 2.2
+
