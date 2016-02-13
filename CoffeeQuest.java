@@ -29,31 +29,12 @@ public class CoffeeQuest{
 	public char inputToChar(String in){
 		String input = in.toUpperCase().trim();
 		//If the player inputs a command with more than 1 character it is invalid.
-		if(input.length() > 1){
+		if(input.length() != 1){
 			return 'X';
 		}
 		//Getting the character for the input
 		char inputChar = input.charAt(0);
-		if(inputChar == 'N'){
-			return 'N';
-		}
-		else if(inputChar == 'S'){
-			return 'S';
-		}
-		else if(inputChar == 'L'){
-			return 'L';
-		}
-		else if(inputChar == 'I'){
-			return 'I';
-		}
-		else if(inputChar == 'H'){
-			return 'H';
-		}
-		else if(inputChar == 'D'){
-			return 'D';
-		}
-		
-		return 'X';
+		return inputChar;
 	}
 	
 	public boolean parseInput(Player player){
@@ -63,23 +44,54 @@ public class CoffeeQuest{
 			if(currentRoom.isRoomNorth()){
 				currentRoom = currentRoom.north;
 			}
+			else{
+				System.out.println("There's no door there...");
+			}
 		}
 		else if(command == 'S'){
 			if(currentRoom.isRoomSouth()){
 				currentRoom = currentRoom.south;
 			}
+			else{
+				System.out.println("There's no door there...");
+			}
 		}
 		else if(command == 'I'){
-			boolean[] invState = player.getInv();
+			
+			System.out.println(player.invStr());
 		}
 		else if(command == 'L'){
 			char lookResult = player.look(currentRoom);
+			if(lookResult == 'M'){
+				System.out.println("You found Creamy cream!");
+			}
+			else if(lookResult == 'C'){
+				System.out.println("You found Caffeinated Coffee!");
+			}
+			else if (lookResult == 'S'){
+				System.out.println("You found Sweet Sugar!");
+			}
+			else{
+				System.out.println("You didn't find anything useful...");
+			}
 		}
 		else if(command == 'D'){
 			return false;
 		}
 		else if(command == 'H'){
-			System.out.println("HELP");
+			System.out.println("Goal: Hero, it is your goal to get everything Bob needs to brew his magical potion, named 'coffee'. Search the"
+					+ " rooms for ingredients of this 'coffee'. When you have all you require to brew this potion, drink it and be sated.\n");
+			System.out.println("Commands:");
+			System.out.println("N - If the room has a door leading north, moves you through that door.");
+			System.out.println("S - If the room has a door leading south, moves you through that door.");
+			System.out.println("L - Looks for an object in the room");
+			System.out.println("I - Displays the items you have picked up");
+			System.out.println("D - Attempts to create coffee from items in your inventory. Beware the consequences if ye do not have all"
+					+ "ye require.");
+			System.out.println("H - Displays this help message\n");
+		}
+		else{
+			System.out.println("What?");
 		}
 		return true;
 	}
@@ -129,7 +141,27 @@ public class CoffeeQuest{
 		}
 		while(proceed);
 		
-		System.out.println("Done!");
+		System.out.println(readyPlayerOne.invStr());
+		if(readyPlayerOne.checkFullInv()){
+			System.out.println("You mix the coffee, cream, and sugar togather and drink it!");
+			System.out.println("You win! Congratulations!");
+		}
+		else{
+			boolean[] inv = readyPlayerOne.getInv();
+			boolean empty = true;
+			for(boolean val : inv){
+				if(val){
+					empty = false;
+				}
+			}
+			
+			if(empty){
+				System.out.println("You have nothing. You try to drink it. You die from drinking nothing. (This means you lost)");
+			}
+			else{
+				System.out.println("You don't have all the ingredients for coffee. You run out of energy and fail to finish the cs1632 assignment on time. You die. You lose.");
+			}
+		}
 		
 	}
 

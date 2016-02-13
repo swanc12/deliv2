@@ -87,5 +87,33 @@ public class Player{
 		return true;
 	}
 	
+	public String invStr(){
+		String resultString = "";
+		
+		if(inv[0]){
+			resultString = resultString + "You have caffeinated coffee!\n";
+		}
+		else{
+			resultString = resultString + "YOU HAVE NO COFFEE\n";
+		}
+		
+		if(inv[1]){
+			resultString = resultString + "You have creamy cream!\n";
+		}
+		else{
+			resultString = resultString + "YOU HAVE NO CREAM\n";
+		}
+		
+		if(inv[2]){
+			resultString = resultString + "You have sweet sugar!\n";
+		}
+		else{
+			resultString = resultString + "YOU HAVE NO SUGAR\n";
+		}
+		
+		return resultString;
+		
+	}
+	
 	
 }
