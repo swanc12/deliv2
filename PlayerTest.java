@@ -1,3 +1,7 @@
+/*
+ * Test suite for Player class.
+ */
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import org.junit.Test;
@@ -54,47 +58,16 @@ public class PlayerTest extends Player{
 	}
 	
 	/*
-	 * When the drink command is input, the inventory will need to be checked
-	 * to determine whether or not all the required objects have been picked up.
-	 * If all the elements in inv are true then the player has picked up every
-	 * object, and the checkFullInv should return true.
+	 * The getInv method should return the boolean array representing the inventory
+	 * for the player. The test creates a player and asserts that the array returned
+	 * is the same exact array that is in the inventory variable for the player.
 	 */
 	@Test
-	public void testFullInvFull() {
+	public void testGetInv(){
 		Player testPlayer = new Player();
-		testPlayer.inv[0] = true;
-		testPlayer.inv[1] = true;
-		testPlayer.inv[2] = true;
-		assertEquals(true, testPlayer.checkFullInv());
+		assertEquals(testPlayer.inv, testPlayer.getInv());
 	}
-	
-	/*
-	 * When the drink command is input, the inventory will need to be checked
-	 * to determine whether or not all the required objects have been picked up.
-	 * If not all the elements in inv are true, then the player has not picked up every
-	 * object, and the checkFullInv method should return false.
-	 */
-	@Test
-	public void testFullInvPartial() {
-		Player testPlayer = new Player();
-		testPlayer.inv[0] = true;
-		testPlayer.inv[1] = true;
-		assertEquals(false, testPlayer.checkFullInv());
-	}
-	
-	/*
-	 * When the drink command is input, the inventory will need to be checked
-	 * to determine whether or not all the required objects have been picked up.
-	 * If all the elements in inv are false then the player has not picked up any
-	 * object, and the checkFullInv method should return false.
-	 */
-	@Test
-	public void testFullInvEmpty() {
-		Player testPlayer = new Player();
-		assertEquals(false, testPlayer.checkFullInv());
-	}
-	
-	
+
 	/*
 	 * When the player looks they should return a character to represent what object they
 	 * found, and update their inventory to reflect that they have that object. This
@@ -188,5 +161,114 @@ public class PlayerTest extends Player{
 		assertEquals(testPlayer.inv[2], false);
 		assertEquals(result, 'X');
 	}
+	
+	
+	/*
+	 * When the drink command is input, the inventory will need to be checked
+	 * to determine whether or not all the required objects have been picked up.
+	 * If all the elements in inv are true then the player has picked up every
+	 * object, and the checkFullInv should return true.
+	 */
+	@Test
+	public void testFullInvFull() {
+		Player testPlayer = new Player();
+		testPlayer.inv[0] = true;
+		testPlayer.inv[1] = true;
+		testPlayer.inv[2] = true;
+		assertEquals(true, testPlayer.checkFullInv());
+	}
+	
+	/*
+	 * When the drink command is input, the inventory will need to be checked
+	 * to determine whether or not all the required objects have been picked up.
+	 * If not all the elements in inv are true, then the player has not picked up every
+	 * object, and the checkFullInv method should return false.
+	 */
+	@Test
+	public void testFullInvPartial() {
+		Player testPlayer = new Player();
+		testPlayer.inv[0] = true;
+		testPlayer.inv[1] = true;
+		assertEquals(false, testPlayer.checkFullInv());
+	}
+	
+	/*
+	 * When the drink command is input, the inventory will need to be checked
+	 * to determine whether or not all the required objects have been picked up.
+	 * If all the elements in inv are false then the player has not picked up any
+	 * object, and the checkFullInv method should return false.
+	 */
+	@Test
+	public void testFullInvEmpty() {
+		Player testPlayer = new Player();
+		assertEquals(false, testPlayer.checkFullInv());
+	}
+	
+	/*
+	 * The invStr method returns a string representation of the
+	 * inventory for the player. This test checks that the proper
+	 * String is created for a full inventory.
+	 */
+	@Test
+	public void testFullInvString(){
+		Player testPlayer = new Player();
+		testPlayer.inv[0] = true;
+		testPlayer.inv[1] = true;
+		testPlayer.inv[2] = true;
+		
+		String expectedStr = "You have caffeinated coffee!\nYou have creamy cream!\nYou have sweet sugar!\n";
+		assertEquals(expectedStr, testPlayer.invStr());
+	}
 
+	/*
+	 * The invStr method returns a string representation of the
+	 * inventory for the player. This test checks that the proper
+	 * String is created for an empty inventory.
+	 */
+	@Test
+	public void testEmptyInvString(){
+		Player testPlayer = new Player();
+		String expectedStr = "YOU HAVE NO COFFEE\nYOU HAVE NO CREAM\nYOU HAVE NO SUGAR\n";
+		assertEquals(expectedStr, testPlayer.invStr());
+	}
+
+	/*
+	 * The invStr method returns a string representation of the
+	 * inventory for the player. This test checks that the proper
+	 * String is created for a partially filled inventory with just coffee.
+	 */
+	@Test
+	public void testPartialInvStringC(){
+		Player testPlayer = new Player();
+		testPlayer.inv[0] = true;
+		String expectedStr = "You have caffeinated coffee!\nYOU HAVE NO CREAM\nYOU HAVE NO SUGAR\n";
+		assertEquals(expectedStr, testPlayer.invStr());
+	}
+
+	/*
+	 * The invStr method returns a string representation of the
+	 * inventory for the player. This test checks that the proper
+	 * String is created for a partially filled inventory with just cream.
+	 */
+	@Test
+	public void testPartialInvStringM(){
+		Player testPlayer = new Player();
+		testPlayer.inv[1] = true;
+		String expectedStr = "YOU HAVE NO COFFEE\nYou have creamy cream!\nYOU HAVE NO SUGAR\n";
+		assertEquals(expectedStr, testPlayer.invStr());
+	}
+	
+
+	/*
+	 * The invStr method returns a string representation of the
+	 * inventory for the player. This test checks that the proper
+	 * String is created for a partially filled inventory with just sugar.
+	 */
+	@Test
+	public void testPartialInvStringS(){
+		Player testPlayer = new Player();
+		testPlayer.inv[2] = true;
+		String expectedStr = "YOU HAVE NO COFFEE\nYOU HAVE NO CREAM\nYou have sweet sugar!\n";
+		assertEquals(expectedStr, testPlayer.invStr());
+	}
 }

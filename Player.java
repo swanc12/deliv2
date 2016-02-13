@@ -26,14 +26,23 @@ public class Player{
 		inv = new boolean[3];
 	}
 	
+	/*
+	 * Sets the coffee flag in the inventory to true.
+	 */
 	public void addCoffee(){
 		inv[0] = true;
 	}
 	
+	/*
+	 * Sets the cream flag in the inventory to true.
+	 */
 	public void addCream(){
 		inv[1] = true;
 	}
 
+	/*
+	 * Sets the sugar flag in the inventory to true.
+	 */
 	public void addSugar(){
 		inv[2] = true;
 	}
@@ -87,6 +96,9 @@ public class Player{
 		return true;
 	}
 	
+	/*
+	 * Constructs a String representation of the inventory and returns it.
+	 */
 	public String invStr(){
 		String resultString = "";
 		

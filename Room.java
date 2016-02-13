@@ -1,7 +1,7 @@
 /*
  * Room class for the Coffee Quest project (Deliverable 2). Basically creating
  * a doubly linked list for the rooms, since it seemed intuitive and makes testing
- * straight-forward.
+ * relatively straight-forward.
  * 
  * Author: Colin Swan
  * Due Date: February 15, 2016
@@ -17,7 +17,8 @@ public class Room{
 	
 	protected String adjective;
 	protected String furnishing;
-	protected String object; //object to be picked up by player if they input "L" / "l"
+	protected String object; //object to be picked up by player if they input "L" / "l" Does get
+	//removed when its picked up because it is not a requirement.
 	
 	/*
 	 * Constructor. Empty room. Should not be used in this program but required for
